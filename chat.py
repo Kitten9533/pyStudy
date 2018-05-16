@@ -11,9 +11,9 @@ name = None
 def user_init():
 	print('\n----------Start----------')
 	print('    输入END则结束聊天    \n')
-	name = input('Set your name: ')
+	name = input('Set your name: ').replace(' ', '')
 	while(len(name) == 0):
-		name = input('Set your name again:')
+		name = input('Set your name again:').replace(' ', '')
 	print('Let\'s chat, %s!\n' % name)
 	return name
 
