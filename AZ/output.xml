@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generated="20180518 18:33:34.711" generator="Robot 3.0.4 (Python 2.7.15 on win32)">
+<suite source="D:\D\pyStudy\AZ\az.robot" id="s1" name="Az">
+<test id="s1-t1" name="test1">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>github</arg>
+<arg>https://api.github.com</arg>
+</arguments>
+<msg timestamp="20180518 18:33:34.811" level="INFO">Creating Session using : alias=github, url=https://api.github.com, headers={},                     cookies=None, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" endtime="20180518 18:33:34.812" starttime="20180518 18:33:34.811"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the</doc>
+<arguments>
+<arg>github</arg>
+<arg>/users/bulkan</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20180518 18:33:35.607" level="INFO">Get Request using : alias=github, uri=/users/bulkan, headers=None json=None</msg>
+<msg timestamp="20180518 18:33:35.607" level="INFO">c:\python27\lib\site-packages\urllib3\connectionpool.py:858: InsecureRequestWarning: Unverified HTTPS request is being made. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning)</msg>
+<msg timestamp="20180518 18:33:35.609" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" endtime="20180518 18:33:35.610" starttime="20180518 18:33:34.812"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+<arg>200</arg>
+</arguments>
+<msg timestamp="20180518 18:33:35.614" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20180518 18:33:35.614" starttime="20180518 18:33:35.613"></status>
+</kw>
+<tags>
+<tag>get</tag>
+</tags>
+<status status="PASS" endtime="20180518 18:33:35.614" critical="yes" starttime="20180518 18:33:34.811"></status>
+</test>
+<test id="s1-t2" name="login">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>AZ</arg>
+<arg>http://m.aizhuanshangcheng.com</arg>
+</arguments>
+<msg timestamp="20180518 18:33:35.625" level="INFO">Creating Session using : alias=AZ, url=http://m.aizhuanshangcheng.com, headers={},                     cookies=None, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" endtime="20180518 18:33:35.626" starttime="20180518 18:33:35.624"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>authCode=1</arg>
+<arg>deviceType=android</arg>
+<arg>location=""</arg>
+<arg>password=12345678</arg>
+<arg>phone=17816866126</arg>
+<arg>uniqueId=d9f597114a17550b3eb21f13b1ddea1f</arg>
+</arguments>
+<assign>
+<var>&amp;{data}</var>
+</assign>
+<msg timestamp="20180518 18:33:35.631" level="INFO">&amp;{data} = { authCode=1 | deviceType=android | location="" | password=12345678 | phone=17816866126 | uniqueId=d9f597114a17550b3eb21f13b1ddea1f }</msg>
+<status status="PASS" endtime="20180518 18:33:35.631" starttime="20180518 18:33:35.627"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=application/json; charset=utf-8</arg>
+</arguments>
+<assign>
+<var>&amp;{headers}</var>
+</assign>
+<msg timestamp="20180518 18:33:35.634" level="INFO">&amp;{headers} = { Content-Type=application/json; charset=utf-8 }</msg>
+<status status="PASS" endtime="20180518 18:33:35.634" starttime="20180518 18:33:35.632"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the</doc>
+<arguments>
+<arg>AZ</arg>
+<arg>/uc/login/in</arg>
+<arg>data=${data}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20180518 18:33:36.134" level="INFO">Post Request using : alias=AZ, uri=/uc/login/in, data={"authCode": "1", "deviceType": "android", "location": "\"\"", "password": "12345678", "phone": "17816866126", "uniqueId": "d9f597114a17550b3eb21f13b1ddea1f"}, headers={u'Content-Type': u'application/json; charset=utf-8'}, files=None, allow_redirects=True </msg>
+<msg timestamp="20180518 18:33:36.135" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" endtime="20180518 18:33:36.135" starttime="20180518 18:33:35.635"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+<arg>200</arg>
+</arguments>
+<msg timestamp="20180518 18:33:36.137" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20180518 18:33:36.137" starttime="20180518 18:33:36.136"></status>
+</kw>
+<tags>
+<tag>AZ Login</tag>
+</tags>
+<status status="PASS" endtime="20180518 18:33:36.138" critical="yes" starttime="20180518 18:33:35.622"></status>
+</test>
+<status status="PASS" endtime="20180518 18:33:36.141" starttime="20180518 18:33:34.713"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="0" pass="2">Critical Tests</stat>
+<stat fail="0" pass="2">All Tests</stat>
+</total>
+<tag>
+<stat fail="0" pass="1">AZ Login</stat>
+<stat fail="0" pass="1">get</stat>
+</tag>
+<suite>
+<stat fail="0" id="s1" name="Az" pass="2">Az</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
