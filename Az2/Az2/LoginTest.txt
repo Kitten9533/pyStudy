@@ -1,0 +1,40 @@
+*** Settings ***
+Library           json
+Library           requests
+Library           RequestsLibrary
+Library           collections
+Library           SeleniumLibrary
+Library           String
+
+*** Variables ***
+${domain}         http://m.aizhuanshangcheng.com    # 请求地址
+
+*** Test Cases ***
+登录成功
+    login2    1    android    ""    12345678    17816866126    d9f597114a17550b3eb21f13b1ddea1f
+    ...    True
+
+密码错误
+    login2    1    android    ""    abdcjdie    17816866126    d9f597114a17550b3eb21f13b1ddea1f
+    ...    False
+
+账号错误
+    login2    1    android    ""    12345678    17816866126_1    d9f597114a17550b3eb21f13b1ddea1f
+    ...    False
+
+uniqueId不填
+    login2    1    android    ""    12345678    17816866126    ${EMPTY}
+    ...    True
+
+*** Keywords ***
+login2
+    [Arguments]    ${authCode}    ${deviceType}    ${location}    ${password}    ${phone}    ${uniqueId}
+    ...    ${exceptedSuccess}
+    #登录
+    Create Session    LoginTest    ${domain}
+    &{headers}=    Create Dictionary    Content-Type=application/json; charset=utf-8
+    &{data}=    Create Dictionary    authCode=${authCode}    deviceType=${deviceType}    location=${location}    password=${password}    phone=${phone}
+    ...    uniqueId=${uniqueId}
+    ${resp}=    Post Request    LoginTest    /uc/login/in    data=${data}    headers=${headers}
+    Should Be Equal As Strings    ${resp.json()['success']}    ${exceptedSuccess}
+    Log    ${resp.json()['msg']}

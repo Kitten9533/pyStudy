@@ -1,0 +1,87 @@
+*** Settings ***
+Suite Setup       login    1    android    ""    12345678    17816866126    d9f597114a17550b3eb21f13b1ddea1f
+...               # 登陆接口
+Test Teardown     # 删除缓存
+Library           json
+Library           requests
+Library           RequestsLibrary
+Library           collections
+Library           SeleniumLibrary
+Library           String
+
+*** Variables ***
+${domain}         http://m.aizhuanshangcheng.com    # 请求地址
+
+*** Test Cases ***
+/uc/user/get
+    #用户信息获取
+    ${resp}=    Post Request    AZ    /uc/user/get
+    common judge    ${resp}
+
+/trade/user/getUserAccount
+    #用户账户
+    ${resp}=    Post Request    AZ    /trade/user/getUserAccount
+    common judge    ${resp}
+    Log    ${resp.json()['result']['totalCreditAmount']}
+
+/sys/banner/query?type=index
+    #首页banner
+    &{params}    Create Dictionary    type=index
+    ${resp}=    Get Request    AZ    /sys/banner/query    params=${params}
+    common judge    ${resp}
+    Should Not Be Empty    ${resp.json()['result']}
+    #banner的图片地址
+    ${banners}=    Evaluate    [banners.get('imgUrl') for banners in ${resp.json()['result']}]
+    Log    ${banners}
+
+获取商品列表
+    ${resp}=    Get Request    AZ    /product/activity/products/tttj
+    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be Equal As Strings    ${resp.json()['code']}    200
+    Should Be Equal As Strings    ${resp.json()['success']}    True
+    Should Not Be Empty    ${resp.json()['result']}
+    ${ids}=    Evaluate    [ids.get('id') for ids in ${resp.json()['result']}]
+    Log    ${ids}
+    #所有的天天特价商品的id
+    Set Suite Variable    ${ids}
+
+获取商品详情
+    #所有天天特价商品详情接口
+    :FOR    ${id}    IN    @{ids}
+    \    Log    获取商品id:${id}的商品详情
+    \    get productDetail by id    ${id}
+    Log    循环结束
+
+*** Keywords ***
+login
+    [Arguments]    ${authCode}    ${deviceType}    ${location}    ${password}    ${phone}    ${uniqueId}
+    #登录
+    Create Session    AZ    ${domain}
+    &{headers}=    Create Dictionary    Content-Type=application/json; charset=utf-8
+    &{data}=    Create Dictionary    authCode=${authCode}    deviceType=${deviceType}    location=${location}    password=${password}    phone=${phone}
+    ...    uniqueId=${uniqueId}
+    ${resp}=    Post Request    AZ    /uc/login/in    data=${data}    headers=${headers}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be Equal As Strings    ${resp.json()['success']}    True
+    Log    ${resp.cookies}
+    ${gloablCookie}    Set Variable    ${resp.cookies}
+    Set Suite Variable    ${gloablCookie}
+
+get productDetail by id
+    [Arguments]    ${id}
+    #通过商品id来获取商品详情
+    ${resp}=    Get Request    AZ    /product/business/detail/${id}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be Equal As Strings    ${resp.json()['code']}    200
+    Should Be Equal As Strings    ${resp.json()['success']}    True
+
+common judge
+    [Arguments]    ${resp}
+    #通用的判断返回值的方法
+    Log    ${resp}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    #判断用户信息是否获取成功
+    Should Be Equal As Strings    ${resp.json()['code']}    200
+    Should Be Equal As Strings    ${resp.json()['success']}    True
+    Log    ${resp.json()['msg']}
+    Should Not Be Empty    ${resp.json()['result']}

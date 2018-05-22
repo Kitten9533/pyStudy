@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generated="20180518 18:33:34.711" generator="Robot 3.0.4 (Python 2.7.15 on win32)">
+<robot generated="20180521 10:37:33.908" generator="Robot 3.0.4 (Python 2.7.15 on win32)">
 <suite source="D:\D\pyStudy\AZ\az.robot" id="s1" name="Az">
 <test id="s1-t1" name="test1">
 <kw name="Create Session" library="RequestsLibrary">
@@ -8,8 +8,8 @@
 <arg>github</arg>
 <arg>https://api.github.com</arg>
 </arguments>
-<msg timestamp="20180518 18:33:34.811" level="INFO">Creating Session using : alias=github, url=https://api.github.com, headers={},                     cookies=None, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
-<status status="PASS" endtime="20180518 18:33:34.812" starttime="20180518 18:33:34.811"></status>
+<msg timestamp="20180521 10:37:34.016" level="INFO">Creating Session using : alias=github, url=https://api.github.com, headers={},                     cookies=None, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" endtime="20180521 10:37:34.017" starttime="20180521 10:37:34.016"></status>
 </kw>
 <kw name="Get Request" library="RequestsLibrary">
 <doc>Send a GET request on the session object found using the</doc>
@@ -20,11 +20,11 @@
 <assign>
 <var>${resp}</var>
 </assign>
-<msg timestamp="20180518 18:33:35.607" level="INFO">Get Request using : alias=github, uri=/users/bulkan, headers=None json=None</msg>
-<msg timestamp="20180518 18:33:35.607" level="INFO">c:\python27\lib\site-packages\urllib3\connectionpool.py:858: InsecureRequestWarning: Unverified HTTPS request is being made. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+<msg timestamp="20180521 10:37:35.455" level="INFO">Get Request using : alias=github, uri=/users/bulkan, headers=None json=None</msg>
+<msg timestamp="20180521 10:37:35.455" level="INFO">c:\python27\lib\site-packages\urllib3\connectionpool.py:858: InsecureRequestWarning: Unverified HTTPS request is being made. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
   InsecureRequestWarning)</msg>
-<msg timestamp="20180518 18:33:35.609" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
-<status status="PASS" endtime="20180518 18:33:35.610" starttime="20180518 18:33:34.812"></status>
+<msg timestamp="20180521 10:37:35.456" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" endtime="20180521 10:37:35.456" starttime="20180521 10:37:34.017"></status>
 </kw>
 <kw name="Should Be Equal As Strings" library="BuiltIn">
 <doc>Fails if objects are unequal after converting them to strings.</doc>
@@ -32,15 +32,15 @@
 <arg>${resp.status_code}</arg>
 <arg>200</arg>
 </arguments>
-<msg timestamp="20180518 18:33:35.614" level="INFO">Argument types are:
+<msg timestamp="20180521 10:37:35.458" level="INFO">Argument types are:
 &lt;type 'int'&gt;
 &lt;type 'unicode'&gt;</msg>
-<status status="PASS" endtime="20180518 18:33:35.614" starttime="20180518 18:33:35.613"></status>
+<status status="PASS" endtime="20180521 10:37:35.458" starttime="20180521 10:37:35.457"></status>
 </kw>
 <tags>
 <tag>get</tag>
 </tags>
-<status status="PASS" endtime="20180518 18:33:35.614" critical="yes" starttime="20180518 18:33:34.811"></status>
+<status status="PASS" endtime="20180521 10:37:35.459" critical="yes" starttime="20180521 10:37:34.016"></status>
 </test>
 <test id="s1-t2" name="login">
 <kw name="Create Session" library="RequestsLibrary">
@@ -49,8 +49,19 @@
 <arg>AZ</arg>
 <arg>http://m.aizhuanshangcheng.com</arg>
 </arguments>
-<msg timestamp="20180518 18:33:35.625" level="INFO">Creating Session using : alias=AZ, url=http://m.aizhuanshangcheng.com, headers={},                     cookies=None, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
-<status status="PASS" endtime="20180518 18:33:35.626" starttime="20180518 18:33:35.624"></status>
+<msg timestamp="20180521 10:37:35.462" level="INFO">Creating Session using : alias=AZ, url=http://m.aizhuanshangcheng.com, headers={},                     cookies=None, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" endtime="20180521 10:37:35.463" starttime="20180521 10:37:35.462"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=application/json; charset=utf-8</arg>
+</arguments>
+<assign>
+<var>&amp;{headers}</var>
+</assign>
+<msg timestamp="20180521 10:37:35.466" level="INFO">&amp;{headers} = { Content-Type=application/json; charset=utf-8 }</msg>
+<status status="PASS" endtime="20180521 10:37:35.466" starttime="20180521 10:37:35.464"></status>
 </kw>
 <kw name="Create Dictionary" library="BuiltIn">
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
@@ -65,19 +76,8 @@
 <assign>
 <var>&amp;{data}</var>
 </assign>
-<msg timestamp="20180518 18:33:35.631" level="INFO">&amp;{data} = { authCode=1 | deviceType=android | location="" | password=12345678 | phone=17816866126 | uniqueId=d9f597114a17550b3eb21f13b1ddea1f }</msg>
-<status status="PASS" endtime="20180518 18:33:35.631" starttime="20180518 18:33:35.627"></status>
-</kw>
-<kw name="Create Dictionary" library="BuiltIn">
-<doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<arguments>
-<arg>Content-Type=application/json; charset=utf-8</arg>
-</arguments>
-<assign>
-<var>&amp;{headers}</var>
-</assign>
-<msg timestamp="20180518 18:33:35.634" level="INFO">&amp;{headers} = { Content-Type=application/json; charset=utf-8 }</msg>
-<status status="PASS" endtime="20180518 18:33:35.634" starttime="20180518 18:33:35.632"></status>
+<msg timestamp="20180521 10:37:35.468" level="INFO">&amp;{data} = { authCode=1 | deviceType=android | location="" | password=12345678 | phone=17816866126 | uniqueId=d9f597114a17550b3eb21f13b1ddea1f }</msg>
+<status status="PASS" endtime="20180521 10:37:35.468" starttime="20180521 10:37:35.467"></status>
 </kw>
 <kw name="Post Request" library="RequestsLibrary">
 <doc>Send a POST request on the session object found using the</doc>
@@ -90,9 +90,9 @@
 <assign>
 <var>${resp}</var>
 </assign>
-<msg timestamp="20180518 18:33:36.134" level="INFO">Post Request using : alias=AZ, uri=/uc/login/in, data={"authCode": "1", "deviceType": "android", "location": "\"\"", "password": "12345678", "phone": "17816866126", "uniqueId": "d9f597114a17550b3eb21f13b1ddea1f"}, headers={u'Content-Type': u'application/json; charset=utf-8'}, files=None, allow_redirects=True </msg>
-<msg timestamp="20180518 18:33:36.135" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
-<status status="PASS" endtime="20180518 18:33:36.135" starttime="20180518 18:33:35.635"></status>
+<msg timestamp="20180521 10:37:35.756" level="INFO">Post Request using : alias=AZ, uri=/uc/login/in, data={"authCode": "1", "deviceType": "android", "location": "\"\"", "password": "12345678", "phone": "17816866126", "uniqueId": "d9f597114a17550b3eb21f13b1ddea1f"}, headers={u'Content-Type': u'application/json; charset=utf-8'}, files=None, allow_redirects=True </msg>
+<msg timestamp="20180521 10:37:35.757" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" endtime="20180521 10:37:35.757" starttime="20180521 10:37:35.469"></status>
 </kw>
 <kw name="Should Be Equal As Strings" library="BuiltIn">
 <doc>Fails if objects are unequal after converting them to strings.</doc>
@@ -100,17 +100,25 @@
 <arg>${resp.status_code}</arg>
 <arg>200</arg>
 </arguments>
-<msg timestamp="20180518 18:33:36.137" level="INFO">Argument types are:
+<msg timestamp="20180521 10:37:35.760" level="INFO">Argument types are:
 &lt;type 'int'&gt;
 &lt;type 'unicode'&gt;</msg>
-<status status="PASS" endtime="20180518 18:33:36.137" starttime="20180518 18:33:36.136"></status>
+<status status="PASS" endtime="20180521 10:37:35.760" starttime="20180521 10:37:35.758"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp.cookies}</arg>
+</arguments>
+<msg timestamp="20180521 10:37:35.762" level="INFO">&lt;RequestsCookieJar[&lt;Cookie xjd_at=1526870253070 for .aizhuanshangcheng.com/&gt;, &lt;Cookie xjd_et=1526956653068 for .aizhuanshangcheng.com/&gt;, &lt;Cookie xjd_fg=bm9ybWFs%0A for .aizhuanshangcheng.com/&gt;, &lt;Cookie xjd_nm=6LW15pem5pem%0A for .aizhuanshangcheng.com/&gt;, &lt;Cookie xjd_ph=MTc4MTY4NjYxMjY%3D%0A for .aizhuanshangcheng.com/&gt;, &lt;Cookie xjd_sg=EKYb7E5qpw6qu1hY%2F9b44IkUwjhgcihISS0tyOIgeqXEVpGzbgl0rz0onckoBk5lTFcHNHVHVeYV%0AQKZYIiXZR5vEjtj%2B8XbePETGH%2FE20kfVNcPqQbyA02VtfZ1NSezIvtu6oPYCTTSTLd9wJ6KzadB%2F%0Ar9CO6mRanwcfLG2GnME%3D for .aizhuanshangcheng.com/&gt;, &lt;Cookie xjd_sr=YXBw%0A for .aizhuanshangcheng.com/&gt;, &lt;Cookie xjd_tk=TThsc1drQXQxMDI3MjY%3D%0A for .aizhuanshangcheng.com/&gt;, &lt;Cookie xjd_uid=MTAwNjQ0MA%3D%3D%0A for .aizhuanshangcheng.com/&gt;, &lt;Cookie org.springframework.web.servlet.i18n.CookieLocaleResolver.LOCALE=en_US for m.aizhuanshangcheng.com/&gt;]&gt;</msg>
+<status status="PASS" endtime="20180521 10:37:35.763" starttime="20180521 10:37:35.761"></status>
 </kw>
 <tags>
 <tag>AZ Login</tag>
 </tags>
-<status status="PASS" endtime="20180518 18:33:36.138" critical="yes" starttime="20180518 18:33:35.622"></status>
+<status status="PASS" endtime="20180521 10:37:35.763" critical="yes" starttime="20180521 10:37:35.461"></status>
 </test>
-<status status="PASS" endtime="20180518 18:33:36.141" starttime="20180518 18:33:34.713"></status>
+<status status="PASS" endtime="20180521 10:37:35.767" starttime="20180521 10:37:33.911"></status>
 </suite>
 <statistics>
 <total>
